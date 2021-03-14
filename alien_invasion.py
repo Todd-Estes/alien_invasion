@@ -64,6 +64,7 @@ class AlienInvasion:
           self.settings.initialize_dynamic_settings()
           self.stats.reset_stats()
           self.stats.game_active = True
+          self.sb.prep_score()
 
           #Get rid of any remaining aliens and bullets 
           self.aliens.empty()
@@ -117,7 +118,8 @@ class AlienInvasion:
           self.bullets, self.aliens, True, True)
 
       if collisions: 
-          self.stats.score += self.settings.alien_points 
+          for aliens in collisions.values():
+            self.stats.score += self.settings.alien_points * len(aliens)
           self.sb.prep_score()
 
       if not self.aliens: 
